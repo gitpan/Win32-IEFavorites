@@ -3,10 +3,10 @@ package Win32::IEFavorites;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Win32::TieRegistry;
-use File::Find::Rule;
+use File::Find::Rule ();
 use File::Spec;
 
 use Win32::IEFavorites::Item;
@@ -22,7 +22,7 @@ sub dirname {
   return $value;
 }
 
-sub items {
+sub find {
   my ($class, @expr) = @_;
 
   @expr = ( '*.url' ) unless @expr;
@@ -51,7 +51,7 @@ Win32::IEFavorites - handles Internet Explorer's Favorites
 
   use Win32::IEFavorites;
 
-  my @items = Win32::IEFavorites->items('*del.icio.us');
+  my @items = Win32::IEFavorites->find('*del.icio.us');
   foreach my $item (@items) {
     print $item->url,"\n";
   }
@@ -61,7 +61,7 @@ Win32::IEFavorites - handles Internet Explorer's Favorites
 This module is to handle Internet Explorer's Favorites items
 (Internet shortcuts). For now it only can grab shortcuts and
 provide their properties (url, modified, iconfile, iconindex).
-You may use this with some aggregator like Plagger.
+You may want to use this with some aggregator like Plagger.
 
 =head1 CLASS METHODS
 
@@ -69,7 +69,7 @@ You may use this with some aggregator like Plagger.
 
 Returns your IE's Favorites directory.
 
-=head2 items ( some rules )
+=head2 find ( some rules )
 
 Returns your IE's Favorites as an array of ::Item objects.
 Each object has url, modified, iconfile, iconindex properties.
