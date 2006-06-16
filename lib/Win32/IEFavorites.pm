@@ -3,7 +3,7 @@ package Win32::IEFavorites;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Win32::TieRegistry;
 use File::Find::Rule ();
@@ -11,7 +11,7 @@ use File::Spec;
 
 use Win32::IEFavorites::Item;
 
-sub dirname {
+sub folder {
   my $class = shift;
 
   my $folders = $Registry->{
@@ -27,7 +27,7 @@ sub find {
 
   @expr = ( '*.url' ) unless @expr;
 
-  my $dir = $class->dirname;
+  my $dir = $class->folder;
 
   my @files = File::Find::Rule->file()->name( @expr )->in( $dir );
 
@@ -65,9 +65,9 @@ You may want to use this with some aggregator like Plagger.
 
 =head1 CLASS METHODS
 
-=head2 dirname
+=head2 folder
 
-Returns your IE's Favorites directory.
+Returns your IE's Favorites folder.
 
 =head2 find ( some rules )
 

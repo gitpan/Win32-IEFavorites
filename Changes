@@ -1,6 +1,10 @@
 Revision history for Perl extension Win32::IEFavorites.
 
 0.02  Thu Jun 16 2006
+  - API changed again (sorry): dirname -> folder
+  - added Win32::IEFavorites::DateTime
+
+0.02  Thu Jun 16 2006
   - API changed (sorry): items -> find
   - fixed some pod
 

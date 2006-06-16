@@ -6,6 +6,8 @@ WriteMakefile(
       Win32::TieRegistry => 0,
       File::Find::Rule => 0,
       File::Spec => 0,
+      Win32::FileTime => 0,
+      DateTime => 0,
     },
     ($] >= 5.005 ?
       (ABSTRACT_FROM  => 'lib/Win32/IEFavorites.pm',

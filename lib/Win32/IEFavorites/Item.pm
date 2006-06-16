@@ -3,16 +3,18 @@ package Win32::IEFavorites::Item;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Config::IniFiles;
+use Win32::IEFavorites::DateTime;
 
 sub new {
   my ($class, $path) = @_;
 
   bless {
-    path   => $path,
-    cached => 0,
+    path     => $path,
+    cached   => 0,
+    datetime => undef,
   }, $class;
 }
 
@@ -34,9 +36,17 @@ sub _load {
 
 sub path      { $_[0]->{path}; }
 sub url       { $_[0]->_value('url'); }
-sub modified  { $_[0]->_value('modified'); }
 sub iconfile  { $_[0]->_value('iconfile'); }
 sub iconindex { $_[0]->_value('iconindex'); }
+
+sub modified  {
+  my $self     = shift;
+  unless ($self->{datetime}) {
+    my $modified = $self->_value('modified');
+    $self->{datetime} = Win32::IEFavorites::DateTime->new($modified);
+  }
+  $self->{datetime};
+}
 
 1;
 __END__
@@ -49,10 +59,11 @@ Win32::IEFavorites::Item - Internet Explorer's Favorites item
 
   use Win32::IEFavorites;
 
-  my %files = Win32::IEFavorites->files;
+  my @items = Win32::IEFavorites->find;
 
-  foreach my $file (values %files) {
-    print $file->url,"\n";
+  foreach my $item (@items) {
+    print $item->url,"\n";
+    print $item->modified->ymd,"\n";
   }
 
 =head1 METHODS
@@ -71,7 +82,7 @@ Returns the url of the shortcut.
 
 =head2 modified
 
-Returns the modified time of the shortcut.
+Returns a DateTime object for the modified time of the shortcut.
 
 =head2 iconfile
 
