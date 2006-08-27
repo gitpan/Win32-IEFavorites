@@ -7,6 +7,7 @@ WriteMakefile(
       File::Find::Rule => 0,
       File::Spec => 0,
       Win32::FileTime => 0,
+      Config::IniFiles => 0,
       DateTime => 0,
     },
     ($] >= 5.005 ?
