@@ -1,16 +1,19 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Win32-IEFavorites
-version:      0.04
-version_from: lib/Win32/IEFavorites.pm
-installdirs:  site
-requires:
+--- #YAML:1.0
+name:                Win32-IEFavorites
+version:             0.05
+abstract:            handles Internet Explorer's Favorites
+license:             perl
+generated_by:        ExtUtils::MakeMaker version 6.32
+distribution_type:   module
+requires:     
     Config::IniFiles:              0
     DateTime:                      0
     File::Find::Rule:              0
     File::Spec:                    0
     Win32::FileTime:               0
     Win32::TieRegistry:            0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
+    version: 1.2
+author:
+    - Kenichi Ishigaki <ishigaki@cpan.org>
