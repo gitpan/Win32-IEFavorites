@@ -3,7 +3,7 @@ package Win32::IEFavorites::Item;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.06';
 
 use Config::IniFiles;
 use Win32::IEFavorites::DateTime;
@@ -29,7 +29,11 @@ sub _load {
   my $self = shift;
   my $ini  = Config::IniFiles->new( -file => $self->{path} );
   foreach my $type (qw/URL Modified IconFile IconIndex/) {
-    $self->{lc($type)} = $ini->val('InternetShortcut',$type) || '';
+    if (defined $ini) {
+      $self->{lc($type)} = $ini->val('InternetShortcut',$type) || '';
+    } else {
+      $self->{lc($type)} = '';
+    }
   }
   $self->{cached} = 1;
 }
